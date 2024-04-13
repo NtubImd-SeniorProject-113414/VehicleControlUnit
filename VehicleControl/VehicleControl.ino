@@ -1,10 +1,10 @@
 // 定義馬達控制腳位
-const int ENA = 4; // PWM 控制速度的輸入腳位
-const int IN1 = 5; // 馬達 1 正轉輸入腳位
-const int IN2 = 6; // 馬達 1 反轉輸入腳位
-const int IN3 = 7; // 馬達 2 正轉輸入腳位
-const int IN4 = 8; // 馬達 2 反轉輸入腳位
-const int ENB = 9; // PWM 控制速度的輸入腳位
+const int ENA = 15; // PWM 控制速度的輸入腳位 黑
+const int IN1 = 0; // 馬達 1 正轉輸入腳位 綠
+const int IN2 = 4; // 馬達 1 反轉輸入腳位 藍
+const int IN3 = 5; // 馬達 2 正轉輸入腳位 紫
+const int IN4 = 18; // 馬達 2 反轉輸入腳位 灰
+const int ENB = 2; // PWM 控制速度的輸入腳位 白
 
 
 void setup() {
