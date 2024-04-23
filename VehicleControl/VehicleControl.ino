@@ -10,12 +10,14 @@ const char* mqtt_server = "140.131.115.152";
 const int mqtt_port = 1883;
 
 // 馬達控制腳位
-const int ENA = 15; 
-const int IN1 = 0; 
-const int IN2 = 4; 
-const int IN3 = 5; 
-const int IN4 = 18; 
-const int ENB = 2; 
+const int ENA = 15; // 黑 
+const int ENB = 2;  // 白
+const int IN1 = 0;  // 綠
+const int IN2 = 4;  // 藍
+const int IN3 = 5;  // 紫
+const int IN4 = 18; // 灰
+// 避障感測器控制角位
+const int Avoidance_Pin = 7;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -33,6 +35,25 @@ void setup_wifi() {
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+}
+
+void setup_avoid() {
+  // 避障感測器
+  int sensorValue = digitalRead(Avoidance_Pin);
+  String sensorString = "";
+  // 輸出感測器的數值到串行監視器
+  Serial.print("Sensor Value: ");
+  Serial.println(sensorValue);
+
+  // 判斷是否檢測到障礙物
+  if (sensorValue == LOW) {
+    // 如果讀取到的值為LOW，表示檢測到障礙物
+    Serial.println("Obstacle detected!");
+  } else {
+    // 如果讀取到的值為HIGH，表示未檢測到障礙物
+    Serial.println("No obstacle detected.");
+  }
+  delay(200);
 }
 
 void callback(char* topic, byte* message, unsigned int length) {
@@ -82,34 +103,18 @@ void reconnect() {
 void setup() {
   Serial.begin(9600);
   setup_wifi();
+  setup_avoid();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
-  
   pinMode(ENA, OUTPUT);
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
   pinMode(ENB, OUTPUT);
+  pinMode(Avoidance_Pin, INPUT);
   analogWrite(ENA, 120);
   analogWrite(ENB, 120);
-}
-
-void loop() {
-  forward();
-  delay(5000);
-  turnLeft();
-  delay(1000);
-  backward();
-  delay(5000);
-  turnRight();
-  delay(1000);
-
-  
-//  if (!client.connected()) {
-//    reconnect();
-//  }
-//  client.loop();
 }
 
 void forward() {
@@ -146,3 +151,17 @@ void stopMotors() {
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, LOW);
 }
+
+void loop() {
+  // 馬達區
+  forward();
+  delay(5000);
+  turnLeft();
+  delay(1000);
+  backward();
+  delay(5000);
+  turnRight();
+  delay(1000);
+}
+
+
