@@ -64,9 +64,9 @@ void setup_unit() {
   analogWrite(ENA, 120);
   analogWrite(ENB, 120);
   controlMotors(STOP);
-  SPI.begin();                     // 初始化 SPI 介面
-  mfrc522.PCD_Init();              // 初始化 MFRC522
-  Serial.println("請將 RFID 標籤靠近讀取器...");
+  // SPI.begin();                     // 初始化 SPI 介面
+  // mfrc522.PCD_Init();              // 初始化 MFRC522
+  // Serial.println("請將 RFID 標籤靠近讀取器...");
 }
 
 // void callback(char* topic, byte* message, unsigned int length) {
@@ -155,22 +155,22 @@ void controlMotors(MotorDirection direction) {
     }
 }
 
-void RFID_listening() {
-    if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
-    Serial.print("卡片 UID:");
-    // 打印出 UID
-    for (byte i = 0; i < mfrc522.uid.size; i++) {
-      Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-      Serial.print(mfrc522.uid.uidByte[i], HEX);
-    }
-    Serial.println();
-    // 讓讀取器準備下一次讀取
-    mfrc522.PICC_HaltA();
-  }
-}
+// void RFID_listening() {
+//     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
+//     Serial.print("卡片 UID:");
+//     // 打印出 UID
+//     for (byte i = 0; i < mfrc522.uid.size; i++) {
+//       Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+//       Serial.print(mfrc522.uid.uidByte[i], HEX);
+//     }
+//     Serial.println();
+//     // 讓讀取器準備下一次讀取
+//     mfrc522.PICC_HaltA();
+//   }
+// }
 
 void loop() {
-  RFID_listening()
+  // RFID_listening()
   int leftSensorValue = digitalRead(leftTrackPin);
   int rightSensorValue = digitalRead(rightTrackPin);
 
@@ -189,7 +189,7 @@ void loop() {
 
   } else {
       // 其他情况（例如两侧都是黑色），可以选择停止或者定义其他行为
-      controlMotors(STOP);
+      controlMotors(BACKWARD);
       Serial.println("黑黑不亮停下");
   }
 }
