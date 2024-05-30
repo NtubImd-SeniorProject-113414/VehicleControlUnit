@@ -1,0 +1,4 @@
+node-red
+node-red-contrib-moment
+node-red-dashboard
+node-red-node-mysql
