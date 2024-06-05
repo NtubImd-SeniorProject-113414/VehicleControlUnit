@@ -4,11 +4,11 @@
 
 
 // RFID
-const int MOSI_PIN = 23; // 橘
-const int MISO_PIN = 19; // 紅
-const int SCK_PIN = 18;  // 白
-const int RST_PIN = 32;  // 黃
-const int SDA_PIN = 21;  // 銀
+const int SDA_PIN = 21;  // 橘              
+const int SCK_PIN = 18;  // 固定腳位 綠
+const int MOSI_PIN = 23; // 固定腳位 棕
+const int MISO_PIN = 19; // 固定腳位 黃
+const int RST_PIN = 22;  // 黃
 
 MFRC522 mfrc522(SDA_PIN, RST_PIN);
 void setup_unit() {
