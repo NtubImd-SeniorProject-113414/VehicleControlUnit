@@ -154,7 +154,7 @@ void deliveringMedicine(void *pvParameters) {
       controlMotorsByBlackLine();
     } else {
       controlMotors(STOP);
-      client.publish("ntubimd/already/delivery/medicine", sensor_card.c_str());
+      client.publish("ntubimd/medicine/destination", sensor_card.c_str());
       sensor_card = "";
       card_code = "";
       vTaskDelete(NULL);
@@ -169,7 +169,7 @@ void deliveringOrder(void *pvParameters) {
       controlMotorsByBlackLine();
     } else {
       controlMotors(STOP);
-      client.publish("ntubimd/already/delivery/order", sensor_card.c_str());
+      client.publish("ntubimd/order/destination", sensor_card.c_str());
       sensor_card = "";
       card_code = "";
       vTaskDelete(NULL);
