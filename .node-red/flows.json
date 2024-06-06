@@ -1,0 +1,1892 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "感測器",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "89a70dc3f912eec1",
+        "type": "tab",
+        "label": "回報進度偵測",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bf870f966b142ee3",
+        "type": "tab",
+        "label": "圖表分析",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "802dead9c850cc93",
+        "type": "mqtt-broker",
+        "name": "mqtt",
+        "broker": "140.131.115.152",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "bf70af93f64d03ee",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7693b9c93d8bd032",
+        "type": "ui_tab",
+        "name": "系統數據管理",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ed70cd64b14c1a7b",
+        "type": "ui_group",
+        "name": "簽到退狀況",
+        "tab": "7693b9c93d8bd032",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "62862f6d062f1a90",
+        "type": "ui_group",
+        "name": "今日打卡情況",
+        "tab": "7693b9c93d8bd032",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7eeec3c4c9323bfe",
+        "type": "ui_group",
+        "name": "總時數查看",
+        "tab": "7693b9c93d8bd032",
+        "order": 3,
+        "disp": true,
+        "width": 10,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1e10772f1cf1989b",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "d1e89f748ad914e7",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 4,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "733608e0f7b63c68",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 5,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "532cdf90f2c4b4de",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 6,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "1a0a7e7d985823e7",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 8,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "9ee5d1c345ae57b2",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 9,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "07b166100e400314",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 10,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "7a0bc104105071f0",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "62862f6d062f1a90",
+        "order": 11,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "29d8f58c97b6ecda",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "9b057ec210c9e4cb",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 4,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "4d9cbf730b884085",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 5,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "764c272681ce8efc",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 6,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "726d5ce400b42e09",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 7,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "8e4e1300659f9f29",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 10,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "ebcfda28f41f2935",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 11,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "9a5fac3b4780b351",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 12,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "a1d6486460d68249",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "ed70cd64b14c1a7b",
+        "order": 13,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "3974617b7879c8d9",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 1,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "71204404cef9c911",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "153185866808232a",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "54d78139cc08d7a5",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "c2b4feaf28a02c2b",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f7eedf6a193b5b05",
+        "type": "ui_spacer",
+        "z": "bf870f966b142ee3",
+        "name": "spacer",
+        "group": "7eeec3c4c9323bfe",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "822e296f523b58a4",
+        "type": "MySQLdatabase",
+        "name": "fin",
+        "host": "140.131.115.152",
+        "port": "54000",
+        "db": "birc",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "f3388360ae64146c",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "偵測藥品送達目的地",
+        "topic": "already/delivery",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "d1bd82e4322e7192"
+            ]
+        ]
+    },
+    {
+        "id": "d1bd82e4322e7192",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nflow.set(\"card_code\", mqttPayload);\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'multipart/form-data';\n\nmsg.payload = {\n    'card_code': mqttPayload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "495267caf537c42e"
+            ]
+        ]
+    },
+    {
+        "id": "495267caf537c42e",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "更改藥品訂單狀態(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/finish_medicine",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c65bbe29da42af25",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "監聽註冊模式",
+        "topic": "card/registerMode",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "8928749867e1018d"
+            ]
+        ]
+    },
+    {
+        "id": "8928749867e1018d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "開啟註冊模式",
+        "func": "var studentId = msg.payload;\n\nflow.set(\"registerMode\", true);\nflow.set(\"nowStudent\", studentId);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "7ffe1dae22cdf173",
+                "674ceb1f5f2acccb"
+            ]
+        ]
+    },
+    {
+        "id": "8e26befa2aa9ce2a",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "判斷卡號是否存在(註冊模式)",
+        "property": "data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Yes",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "No",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 700,
+        "y": 760,
+        "wires": [
+            [
+                "0954b7c73f392d56"
+            ],
+            [
+                "903a52ad95edd11c"
+            ]
+        ]
+    },
+    {
+        "id": "0954b7c73f392d56",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "傳送卡號已存在錯誤訊息到感測器",
+        "topic": "register/fail/card/existed",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 980,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "abd22358e18aa72f",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "註冊卡號(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/registerCard",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "multipart/form-data",
+                "valueValue": ""
+            }
+        ],
+        "x": 1110,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "903a52ad95edd11c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'multipart/form-data';\n\nmsg.payload = {\n    'card_id': flow.get(\"cardId\"),\n    'student': flow.get(\"nowStudent\"),\n    'token': 'p+8bwe~s_74;`?%nq}#?t7~p7_rr6qe_&$?#@*ky//}f^!_b=&00852!sr:sz!a'\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 800,
+        "wires": [
+            [
+                "abd22358e18aa72f"
+            ]
+        ]
+    },
+    {
+        "id": "7ffe1dae22cdf173",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "開啟註冊模式(oled、rgb)",
+        "topic": "registerMode/on",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 710,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "674ceb1f5f2acccb",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 680,
+        "y": 540,
+        "wires": [
+            [
+                "37544a8bf14b2320"
+            ]
+        ]
+    },
+    {
+        "id": "37544a8bf14b2320",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "關閉註冊模式",
+        "func": "\nflow.set(\"registerMode\", false);\nflow.set(\"nowStudent\",\"\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 540,
+        "wires": [
+            [
+                "0be1f15b01cd8cfd"
+            ]
+        ]
+    },
+    {
+        "id": "0be1f15b01cd8cfd",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "關閉註冊模式(oled、rgb)",
+        "topic": "registerMode/off",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 1130,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "199c48baa559259c",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "django驅動區",
+        "info": "",
+        "x": 130,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "baaf3b3f6d7bfe23",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Arduino車驅動區",
+        "info": "",
+        "x": 140,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b714f5558eb09a73",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "更改餐點訂單狀態(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/cardCheck",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "261ef3e6ef1f9108",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nflow.set(\"cardId\", mqttPayload);\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'multipart/form-data';\n\nmsg.payload = {\n    'card_id': mqttPayload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "b714f5558eb09a73"
+            ]
+        ]
+    },
+    {
+        "id": "462f62c6f23e9d9a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "偵測藥品送達目的地",
+        "topic": "already/delivery",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "261ef3e6ef1f9108"
+            ]
+        ]
+    },
+    {
+        "id": "50145cf9176e8707",
+        "type": "inject",
+        "z": "89a70dc3f912eec1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "59 23 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "3c94f51fb1830f45"
+            ]
+        ]
+    },
+    {
+        "id": "3c94f51fb1830f45",
+        "type": "function",
+        "z": "89a70dc3f912eec1",
+        "name": "抓取今日未簽退(SQL)",
+        "func": "msg.topic = \"UPDATE iotApp_sign SET affair = '簽退逾時' WHERE date = CURDATE() AND check_out_time IS NULL;\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "49dc8f3da7b49f41"
+            ]
+        ]
+    },
+    {
+        "id": "8be3d674afb7ea5b",
+        "type": "debug",
+        "z": "89a70dc3f912eec1",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3093d3e1ec7774e0",
+        "type": "inject",
+        "z": "89a70dc3f912eec1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "21600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "223d9924f13fd598"
+            ]
+        ]
+    },
+    {
+        "id": "6fe70ff72e24939b",
+        "type": "http request",
+        "z": "89a70dc3f912eec1",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "140.131.115.152/reportUrl",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "multipart/form-data",
+                "valueValue": ""
+            }
+        ],
+        "x": 580,
+        "y": 400,
+        "wires": [
+            [
+                "383c79377cec9f25"
+            ]
+        ]
+    },
+    {
+        "id": "c0f4bb1cb3044962",
+        "type": "function",
+        "z": "89a70dc3f912eec1",
+        "name": "處理http資料(django)",
+        "func": "var sign_id = msg.signId;\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'multipart/form-data';\nmsg.payload = {\n    'sign_id': sign_id,\n    'token': 'p+8bwe~s_74;`?%nq}#?t7~p7_rr6qe_&$?#@*ky//}f^!_b=&00852!sr:sz!a'\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 340,
+        "wires": [
+            [
+                "6fe70ff72e24939b"
+            ]
+        ]
+    },
+    {
+        "id": "223d9924f13fd598",
+        "type": "function",
+        "z": "89a70dc3f912eec1",
+        "name": "抓取今日前未回報進度的紀錄(SQL)",
+        "func": "msg.topic = \n`\nSELECT iotApp_sign.*, iotApp_student.name AS studentName,\niotApp_notify.token AS notifyToken\nFROM birc.iotApp_sign\nJOIN birc.iotApp_student ON iotApp_sign.student_id = iotApp_student.student_id\nLEFT JOIN birc.iotApp_notify ON iotApp_sign.student_id = iotApp_notify.student_id\nWHERE iotApp_sign.date != CURDATE()\nAND iotApp_sign.affair = '';\n`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "cef3a7e81a373373"
+            ]
+        ]
+    },
+    {
+        "id": "6e30584127733040",
+        "type": "function",
+        "z": "89a70dc3f912eec1",
+        "name": "匯整資料",
+        "func": "var data = msg.payload;\nvar msgList = [];\n\ndata.forEach(function(item) {\n    msgList.push({ \n        studentName: item.studentName,\n        signId: item.sign_id,\n        date: item.date,\n        check_in: item.check_in_time,\n        check_out: item.check_out_time,\n        notifyToken: item.notifyToken });\n});\n\n\nreturn [msgList];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 280,
+        "wires": [
+            [
+                "c0f4bb1cb3044962"
+            ]
+        ]
+    },
+    {
+        "id": "383c79377cec9f25",
+        "type": "function",
+        "z": "89a70dc3f912eec1",
+        "name": "處理http資料(LineNotify Server)",
+        "func": "var url = msg.payload;\nvar studentName = msg.studentName;\nvar notifyToken = msg.notifyToken;\nvar date = msg.date;\nvar check_in = msg.check_in;\nvar check_out = msg.check_out;\n\nvar formattedDate = formatDate(new Date(date));\nvar formattedCheckIn = formatTime(check_in);\nvar formattedCheckOut = formatTime(check_out);\n\nfunction formatDate(inputDate) {\n  const year = inputDate.getFullYear();\n  const month = String(inputDate.getMonth() + 1).padStart(2, '0');\n  const day = String(inputDate.getDate()).padStart(2, '0');\n  return `${year}-${month}-${day}`;\n}\n\nfunction formatTime(inputTime) {\n  const [timePart, millisecondsPart] = inputTime.split('.');\n  const [hours, minutes, seconds] = timePart.split(':');\n  const milliseconds = millisecondsPart ? `.${millisecondsPart}` : ''; // 添加毫秒部分，如果有的話\n  return `${hours}:${minutes}:${seconds}`;\n}\n\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'application/x-www-form-urlencoded';\nmsg.headers['Authorization'] = `Bearer ${notifyToken}`\nvar text = \n`\\n\\n${studentName} 你好 !\\n\n系統偵測到你在${formattedDate} ${formattedCheckOut}時\n\\n有筆簽退紀錄未進行進度回報。請盡快利用下列網址進行回報!\\n\n回報網址: \\n${url}\n`\nmsg.payload = {\n    'message': text,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 460,
+        "wires": [
+            [
+                "514ef36359fb6bcd"
+            ]
+        ]
+    },
+    {
+        "id": "514ef36359fb6bcd",
+        "type": "http request",
+        "z": "89a70dc3f912eec1",
+        "name": "http(LineNotify Server)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://notify-api.line.me/api/notify",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [
+                "0fac661c62f36a09"
+            ]
+        ]
+    },
+    {
+        "id": "0fac661c62f36a09",
+        "type": "debug",
+        "z": "89a70dc3f912eec1",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "49dc8f3da7b49f41",
+        "type": "mysql",
+        "z": "89a70dc3f912eec1",
+        "mydb": "822e296f523b58a4",
+        "name": "fin",
+        "x": 550,
+        "y": 60,
+        "wires": [
+            [
+                "8be3d674afb7ea5b"
+            ]
+        ]
+    },
+    {
+        "id": "cef3a7e81a373373",
+        "type": "mysql",
+        "z": "89a70dc3f912eec1",
+        "mydb": "822e296f523b58a4",
+        "name": "fin",
+        "x": 590,
+        "y": 200,
+        "wires": [
+            [
+                "6e30584127733040"
+            ]
+        ]
+    },
+    {
+        "id": "20beb304b5f8e6ac",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "// 取得日期選擇器的輸入值\nvar selectedDate = msg.payload;\n\n// 轉換日期格式或進行其他必要的處理\n\n// 動態生成 SQL 查詢\nmsg.topic = \"SELECT isLate, DATE_FORMAT(date, '%Y-%m-%d') AS date FROM iotApp_sign \";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "4cc00e37585393be"
+            ]
+        ]
+    },
+    {
+        "id": "f16978fc1d64a6b3",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "加總遲到與未遲到",
+        "func": "var inputData = msg.payload;\n\nvar countIsLate0 = 0;\nvar countIsLate1 = 0;\n\ninputData.forEach(function(item) {\n    if (item.isLate === 0) {\n        countIsLate0++;\n    } else if (item.isLate === 1) {\n        countIsLate1++;\n    }\n});\n\nvar outputMsg = {\n    isLate0: countIsLate0,\n    isLate1: countIsLate1\n};\n\n// 調整為更通用的格式\nmsg.payload = [\n  {\n    \"series\": [\"未遲到\", \"遲到\"],\n    \"data\": [[outputMsg.isLate0, outputMsg.isLate1]],\n    \"labels\": [\"未遲到\", \"遲到\"]\n  }\n];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 160,
+        "wires": [
+            [
+                "e308264593e9a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "c8c1417f9c286316",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "百分比",
+        "func": "var inputData = msg.payload;\n\n// 初始化计数器\nvar countIsLate0 = 0;\nvar countIsLate1 = 0;\n\n// 遍历数据数组\ninputData.forEach(function(item) {\n    if (item.isLate === 0) {\n        countIsLate0++;\n    } else if (item.isLate === 1) {\n        countIsLate1++;\n    }\n});\n\n// 计算百分比\nvar total = countIsLate0 + countIsLate1;\nvar percentageIsLate0 = ((countIsLate0 / total) * 100).toFixed(2);\nvar percentageIsLate1 = ((countIsLate1 / total) * 100).toFixed(2);\n\n// 创建输出消息\nmsg.payload = `未遲到: ${percentageIsLate0}%\\n遲到: ${percentageIsLate1}%`;\n\n// 返回消息对象\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 200,
+        "wires": [
+            [
+                "d8bc0c22e78e60ac"
+            ]
+        ]
+    },
+    {
+        "id": "937d852cf2212882",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "msg.topic = \n`\nSELECT\n  (SELECT COUNT(DISTINCT student_id) \n  FROM birc.iotApp_sign \n  WHERE DATE(date) = CURDATE()) \n  AS student_count_today,\n  (SELECT COUNT(*) FROM iotApp_student) \n  AS total_student_count;\n`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "03ba05c9e1804d21"
+            ]
+        ]
+    },
+    {
+        "id": "5447f07d8b40d866",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "937d852cf2212882"
+            ]
+        ]
+    },
+    {
+        "id": "79a669da04a9513e",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "人數取得",
+        "func": "var queryResult = msg.payload;\nvar allStudent = queryResult[0].total_student_count\nvar signStudent = queryResult[0].student_count_today\n\nmsg.ui_control = { \"min\": 0, \"max\": allStudent }\n// 将查询结果调整为 Gauge 所需的格式\nmsg.payload = signStudent\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 280,
+        "wires": [
+            [
+                "3325d67b728212d0"
+            ]
+        ]
+    },
+    {
+        "id": "b245d32183e1c1a1",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "msg.topic = `\nSELECT\n    s.student_id AS student_id,\n    s.name AS studentName,\n    SUM(i.hours) AS total_hours\nFROM\n    iotApp_sign i\nJOIN\n    iotApp_student s ON i.student_id = s.student_id\nGROUP BY\n    s.student_id, s.name\nORDER BY\n    total_hours DESC;\n`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "57c0139f3c8c9315"
+            ]
+        ]
+    },
+    {
+        "id": "8b67be8ecca07ac8",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 760,
+        "wires": [
+            [
+                "b245d32183e1c1a1"
+            ]
+        ]
+    },
+    {
+        "id": "c808670ae77cf99f",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "對時數進行排行排序與格式",
+        "func": "// Assuming msg.payload contains the result of your SQL query\nvar data = msg.payload;\n\n// Prepare data for chart\nvar labels = data.map(item => item.studentName);\nvar values = data.map(item => item.total_hours);\n\n// Output formatted data\nmsg.payload = [{\n    \"data\": [values],\n    \"series\":[labels],\n    'labels': labels\n}];\n\n\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 760,
+        "wires": [
+            [
+                "1ed5414401323b7c"
+            ]
+        ]
+    },
+    {
+        "id": "d302e5a0f1afd002",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "20beb304b5f8e6ac"
+            ]
+        ]
+    },
+    {
+        "id": "508d8c6762f92d77",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "dd16f5f5130303db"
+            ]
+        ]
+    },
+    {
+        "id": "6187397668bcb5ce",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "msg.topic = \n`\nSELECT\n  (SELECT COUNT(DISTINCT student_id)\n  FROM birc.iotApp_sign \n  WHERE DATE(date) = CURDATE() and check_out_time IS NOT null ) \n  AS student_count_today,\n  (SELECT COUNT(*) FROM iotApp_student) \n  AS total_student_count;\n`\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 400,
+        "wires": [
+            [
+                "91a5148ed42d4c27"
+            ]
+        ]
+    },
+    {
+        "id": "c68982e3d1c94c74",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 400,
+        "wires": [
+            [
+                "6187397668bcb5ce"
+            ]
+        ]
+    },
+    {
+        "id": "b23784604db06213",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "人數取得",
+        "func": "var queryResult = msg.payload;\nvar allStudent = queryResult[0].total_student_count\nvar signStudent = queryResult[0].student_count_today\n\nmsg.ui_control = { \"min\": 0, \"max\": allStudent }\n// 将查询结果调整为 Gauge 所需的格式\nmsg.payload = signStudent\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 400,
+        "wires": [
+            [
+                "edb3dfe35e6b5e99"
+            ]
+        ]
+    },
+    {
+        "id": "6873f9b3c70b78bd",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "msg.topic = `\nSELECT \n    ROUND((COUNT(CASE WHEN affair != '' AND affair != '簽退逾時' THEN 1 END) / COUNT(*)) * 100, 2) AS ratio\nFROM \n    birc.iotApp_sign\nWHERE \n    affair != '簽退逾時';\n\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 540,
+        "wires": [
+            [
+                "07d816db6eb28d4c"
+            ]
+        ]
+    },
+    {
+        "id": "d2840a66050a5d10",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "6873f9b3c70b78bd"
+            ]
+        ]
+    },
+    {
+        "id": "758b7d775f1d0d35",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "人數取得",
+        "func": "var queryResult = msg.payload;\nvar countValue = queryResult[0].ratio\n\n// 将查询结果调整为 Gauge 所需的格式\nmsg.payload = countValue\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 540,
+        "wires": [
+            [
+                "94d0b987af848ded"
+            ]
+        ]
+    },
+    {
+        "id": "a53a5fcfb31813cc",
+        "type": "inject",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 660,
+        "wires": [
+            [
+                "9f36db34d929dbcd"
+            ]
+        ]
+    },
+    {
+        "id": "9f36db34d929dbcd",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "選擇資料表與欄位",
+        "func": "msg.topic = `\nSELECT \n    ROUND((COUNT(CASE WHEN affair = '簽退逾時' THEN 1 END)  / COUNT(*)) * 100, 2) AS ratio\nFROM \n    birc.iotApp_sign;\n\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 660,
+        "wires": [
+            [
+                "f49a8aab5880c88e"
+            ]
+        ]
+    },
+    {
+        "id": "fcf6dd7c649292fa",
+        "type": "function",
+        "z": "bf870f966b142ee3",
+        "name": "人數取得",
+        "func": "var queryResult = msg.payload;\nvar countValue = queryResult[0].ratio\n\n// 将查询结果调整为 Gauge 所需的格式\nmsg.payload = countValue\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 660,
+        "wires": [
+            [
+                "61db59cfd2621dcd"
+            ]
+        ]
+    },
+    {
+        "id": "dd16f5f5130303db",
+        "type": "moment",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "Asia/Taipei",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "zh-TW",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "Asia/Taipei",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "a87235c4bfb11f60"
+            ]
+        ]
+    },
+    {
+        "id": "d8bc0c22e78e60ac",
+        "type": "ui_text",
+        "z": "bf870f966b142ee3",
+        "group": "ed70cd64b14c1a7b",
+        "order": 1,
+        "width": 12,
+        "height": 1,
+        "name": "",
+        "label": "遲到比",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 890,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a87235c4bfb11f60",
+        "type": "ui_text",
+        "z": "bf870f966b142ee3",
+        "group": "62862f6d062f1a90",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "目前時間",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3325d67b728212d0",
+        "type": "ui_gauge",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "group": "62862f6d062f1a90",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "gtype": "donut",
+        "title": "今日簽到人數",
+        "label": "人",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#00b500",
+            "#00b500"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 920,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "edb3dfe35e6b5e99",
+        "type": "ui_gauge",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "group": "62862f6d062f1a90",
+        "order": 7,
+        "width": 6,
+        "height": 4,
+        "gtype": "donut",
+        "title": "今日已簽退人數",
+        "label": "人",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00aaff",
+            "#00aaff",
+            "#00aaff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 920,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "94d0b987af848ded",
+        "type": "ui_gauge",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "group": "ed70cd64b14c1a7b",
+        "order": 9,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "進度回報率",
+        "label": "%",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#37c800",
+            "#37c800",
+            "#37c800"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 910,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "61db59cfd2621dcd",
+        "type": "ui_gauge",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "group": "ed70cd64b14c1a7b",
+        "order": 8,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "簽退逾時率",
+        "label": "%",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#ff0000",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 910,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "e308264593e9a0f8",
+        "type": "ui_chart",
+        "z": "bf870f966b142ee3",
+        "name": "遲到人數",
+        "group": "ed70cd64b14c1a7b",
+        "order": 2,
+        "width": 10,
+        "height": 5,
+        "label": "遲到占比圖",
+        "chartType": "pie",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "no data",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": "0",
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#414ce1",
+            "#ff6c0a",
+            "#ff7f0e",
+            "#2db92d",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 920,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1ed5414401323b7c",
+        "type": "ui_chart",
+        "z": "bf870f966b142ee3",
+        "name": "",
+        "group": "7eeec3c4c9323bfe",
+        "order": 2,
+        "width": "10",
+        "height": "8",
+        "label": "",
+        "chartType": "horizontalBar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "no data",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 910,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4cc00e37585393be",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "late",
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "f16978fc1d64a6b3",
+                "c8c1417f9c286316"
+            ]
+        ]
+    },
+    {
+        "id": "03ba05c9e1804d21",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "people",
+        "x": 490,
+        "y": 280,
+        "wires": [
+            [
+                "79a669da04a9513e"
+            ]
+        ]
+    },
+    {
+        "id": "57c0139f3c8c9315",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "people",
+        "x": 490,
+        "y": 760,
+        "wires": [
+            [
+                "c808670ae77cf99f"
+            ]
+        ]
+    },
+    {
+        "id": "91a5148ed42d4c27",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "people",
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "b23784604db06213"
+            ]
+        ]
+    },
+    {
+        "id": "07d816db6eb28d4c",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "people",
+        "x": 490,
+        "y": 540,
+        "wires": [
+            [
+                "758b7d775f1d0d35"
+            ]
+        ]
+    },
+    {
+        "id": "f49a8aab5880c88e",
+        "type": "mysql",
+        "z": "bf870f966b142ee3",
+        "mydb": "822e296f523b58a4",
+        "name": "people",
+        "x": 490,
+        "y": 660,
+        "wires": [
+            [
+                "fcf6dd7c649292fa"
+            ]
+        ]
+    }
+]
