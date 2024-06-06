@@ -39,11 +39,12 @@ const int leftTrackPin = 35;
 // const int W_SCK_PIN = 12;
 // const int scale_factor = 500; //比例參數，從校正程式HX711_Calibration中取得
 WiFiClient espClient;
-PubSubClient client(espClient);
+PubSubClient MQTTClient(espClient);
 MFRC522 mfrc522(SDA_PIN, RST_PIN);
 TimerHandle_t checkConnectTimer;
 
-
+char* MQTTUser = "";//不須帳密
+char* MQTTPassword = "";//不須帳密
 String sensor_card = "";
 String card_code = "";
 
@@ -109,14 +110,31 @@ void createTask(TaskFunction_t taskFunction, const char* taskName, UBaseType_t p
   xTaskCreate(taskFunction, taskName, 2048, NULL, priority, NULL);
 }
 
+// String RFID_listening() {
+//   String uidHex = "";
+//   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
+//     for (byte i = 0; i < mfrc522.uid.size; i++) {
+//       if (mfrc522.uid.uidByte[i] < 0x10) {
+//         uidHex += " 0";
+//       } else {
+//         uidHex += " ";
+//       }
+//       uidHex += String(mfrc522.uid.uidByte[i], HEX);
+//     }
+//     mfrc522.PICC_HaltA();
+//   }
+//   if(uidHex != ""){
+//     // Serial.print(uidHex);
+//     return uidHex;
+//   }
+// }
+
 String RFID_listening() {
-  String uidHex = "";
+  String uidHex = "0x";
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
     for (byte i = 0; i < mfrc522.uid.size; i++) {
       if (mfrc522.uid.uidByte[i] < 0x10) {
-        uidHex += " 0";
-      } else {
-        uidHex += " ";
+        uidHex += "0";
       }
       uidHex += String(mfrc522.uid.uidByte[i], HEX);
     }
@@ -126,99 +144,96 @@ String RFID_listening() {
 }
 
 void callback(char* topic, byte* message, unsigned int length) {
-  String messageTemp;
+  String receive_card;
   for (int i = 0; i < length; i++) {
-    messageTemp += (char)message[i];
+    receive_card += (char)message[i];
   }
 
   Serial.print("監聽主題: ");
   Serial.println(topic);
   Serial.print("要感應的卡號: ");
-  Serial.println(messageTemp);
+  Serial.println(receive_card);
 
-  if (String(topic) == "ntubimd/car/delivering/order") {
-    createTask(deliveringOrder, "delivering order", 2);
+  if (String(topic) == "ntubimd/car/delivery/order") {
+    Serial.println("送餐去!");
+    deliveringOrder(receive_card);
   }
 
-  if (String(topic) == "ntubimd/car/delivering/medicine") {
-    createTask(deliveringMedicine, "delivering medicine", 3);
+  if (String(topic) == "ntubimd/car/delivery/medicine") {
+    // Serial.println("送餐去!");
+    deliveringMedicine(receive_card);
   }
 }
 
+void deliveringOrder(String receive_card) {
+  while (true) {
+    String sensor_card = RFID_listening();
+    
+    if (sensor_card != "") {
+      if (sensor_card == receive_card) {
+        controlMotors(STOP);
+        MQTTClient.publish("ntubimd/order/destination", sensor_card.c_str());
+        break;
+      } else {
+        controlMotorsByBlackLine();
+      }
+    }
+    delay(500);
+  }
+}
 
 // task 任務區塊
-void deliveringMedicine(void *pvParameters) {
-  while (sensor_card == "") {
-    card_code = RFID_listening();
-    if (sensor_card != card_code) {
-      controlMotorsByBlackLine();
-    } else {
-      controlMotors(STOP);
-      client.publish("ntubimd/medicine/destination", sensor_card.c_str());
-      sensor_card = "";
-      card_code = "";
-      vTaskDelete(NULL);
+void deliveringMedicine(String receive_card) {
+  while (true) {
+    String sensor_card = RFID_listening();
+    
+    if (sensor_card != "") {
+      if (sensor_card == receive_card) {
+        controlMotors(STOP);
+        MQTTClient.publish("ntubimd/medicine/destination", sensor_card.c_str());
+        break;
+      } else {
+        controlMotorsByBlackLine();
+      }
     }
+    delay(500);
   }
 }
 
-void deliveringOrder(void *pvParameters) {
-  while (sensor_card == "") {
-    card_code = RFID_listening();
-    if (sensor_card != card_code) {
-      controlMotorsByBlackLine();
-    } else {
-      controlMotors(STOP);
-      client.publish("ntubimd/order/destination", sensor_card.c_str());
-      sensor_card = "";
-      card_code = "";
-      vTaskDelete(NULL);
-    }
-  }
-}
-
-void connectWiFi(void *pvParameters) {
+void connectWiFi() {
   while (WiFi.status() != WL_CONNECTED) {
     WiFi.begin(ssid, password);
     Serial.println(WiFi.localIP());
     delay(500);
   }
   Serial.println("Wifi ok");
-  vTaskDelete(NULL);
 }
 
-void connectMqtt(void *pvParameters) {
-  client.setServer(mqtt_server, mqtt_port);
-  client.setCallback(callback);
-
-  while (!client.connected()) {
-    Serial.println("Attempting MQTT connection...");
-    if (client.connect("ESP32Client")) {
+void connectMqtt() {
+  while (!MQTTClient.connected()) {
+    String  MQTTClientid = "esp32-" + String(random(1000000, 9999999));//建立一個id，MQTT要求id要不一樣，所以使用亂數
+    if (MQTTClient.connect("ntubimd-esp32-car-dwkoejfihfug", MQTTUser, MQTTPassword)) {
       Serial.println("connected");
-      client.subscribe("ntubimd/car/delivering/order");
-      client.subscribe("ntubimd/car/delivering/medicine");
+      MQTTClient.subscribe("ntubimd/car/delivery/order");
+      MQTTClient.subscribe("ntubimd/car/delivery/medicine");
     } else {
       Serial.print("failed, rc=");
-      Serial.print(client.state());
+      Serial.print(MQTTClient.state());
       Serial.println(" try again in 5 seconds");
       vTaskDelay(2000 / portTICK_PERIOD_MS);
     }
   }
+
   Serial.println("Mqtt ok");
-  vTaskDelete(NULL);
 }
 
 void checkConnection(TimerHandle_t xTimer) {
-  if (WiFi.status() != WL_CONNECTED) {
-    createTask(connectWiFi, "connectWiFi", 0);
-  }
-  if (WiFi.status() != WL_CONNECTED && !client.connected()){
-    createTask(connectMqtt, "connectWiFi", 1);
-  }
-
-  if (WiFi.status() == WL_CONNECTED && client.connected()) {
-    client.publish("ntubimd/car/status", "1");
-    // vTaskDelete(NULL);
+  while(1){
+    if (WiFi.status() == WL_CONNECTED && MQTTClient.connected()) {
+      Serial.println("status ok");
+      MQTTClient.publish("ntubimd/car/status", "1");
+    }
+    vTaskDelay(10000 / portTICK_PERIOD_MS);
   }
 }
 
@@ -237,11 +252,15 @@ void setup() {
   controlMotors(STOP);
   SPI.begin();
   mfrc522.PCD_Init();
-
-  checkConnectTimer = xTimerCreate("MyTimer", pdMS_TO_TICKS(10000), pdTRUE, (void*)0, checkConnection);
-  xTimerStart(checkConnectTimer, 0);
+  MQTTClient.setServer(mqtt_server, 1883);
+  MQTTClient.setCallback(callback);
+  createTask(checkConnection, "checkConnection", 5);
 }
 
 void loop() {
-  client.loop();
+  if (WiFi.status() != WL_CONNECTED) { connectWiFi(); }
+  if (!MQTTClient.connected()) {
+    connectMqtt();
+  }
+  MQTTClient.loop();
 }
