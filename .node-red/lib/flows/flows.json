@@ -1,0 +1,455 @@
+[
+    {
+        "id": "f3388360ae64146c",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "偵測藥品送達目的地",
+        "topic": "ntubimd/nodeRed/delivery/medicine",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "d1bd82e4322e7192"
+            ]
+        ]
+    },
+    {
+        "id": "d1bd82e4322e7192",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\n\nmsg.payload = {\n    'card_code': mqttPayload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "495267caf537c42e"
+            ]
+        ]
+    },
+    {
+        "id": "495267caf537c42e",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "更改藥品訂單狀態(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/finish_medicine_order",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c65bbe29da42af25",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "使用者點擊新增卡片",
+        "topic": "ntubimd/registerCard",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "8928749867e1018d"
+            ]
+        ]
+    },
+    {
+        "id": "8928749867e1018d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "開啟註冊模式",
+        "func": "flow.set(\"registerMode\", true);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 560,
+        "wires": [
+            [
+                "7ffe1dae22cdf173",
+                "674ceb1f5f2acccb"
+            ]
+        ]
+    },
+    {
+        "id": "abd22358e18aa72f",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "註冊卡號(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/add_card",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "multipart/form-data",
+                "valueValue": ""
+            }
+        ],
+        "x": 610,
+        "y": 680,
+        "wires": [
+            [
+                "0ea07b9394aa4cee"
+            ]
+        ]
+    },
+    {
+        "id": "903a52ad95edd11c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\n\nvar registerMode = flow.get(\"registerMode\");\n\nif(registerMode){\n    msg.payload = {\n        'card_code': mqttPayload,\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 680,
+        "wires": [
+            [
+                "abd22358e18aa72f"
+            ]
+        ]
+    },
+    {
+        "id": "7ffe1dae22cdf173",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "開啟註冊模式(oled、rgb)",
+        "topic": "ntubimd/registerMode/on",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 630,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "674ceb1f5f2acccb",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 520,
+        "wires": [
+            [
+                "37544a8bf14b2320"
+            ]
+        ]
+    },
+    {
+        "id": "37544a8bf14b2320",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "關閉註冊模式",
+        "func": "flow.set(\"registerMode\", false);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 520,
+        "wires": [
+            [
+                "0be1f15b01cd8cfd"
+            ]
+        ]
+    },
+    {
+        "id": "0be1f15b01cd8cfd",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "關閉註冊模式(oled、rgb)",
+        "topic": "ntubimd/registerMode/off",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 1050,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "199c48baa559259c",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "django驅動區",
+        "info": "",
+        "x": 130,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "baaf3b3f6d7bfe23",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Arduino車驅動區",
+        "info": "",
+        "x": 140,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b714f5558eb09a73",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "更改餐點訂單狀態(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/finish_order",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "261ef3e6ef1f9108",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\n\nmsg.payload = {\n    'card_code': mqttPayload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "b714f5558eb09a73"
+            ]
+        ]
+    },
+    {
+        "id": "462f62c6f23e9d9a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "偵測訂單送達目的地",
+        "topic": "ntubimd/nodeRed/delivery/order",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "261ef3e6ef1f9108"
+            ]
+        ]
+    },
+    {
+        "id": "0ea07b9394aa4cee",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "傳給卡片管理網頁新增成功",
+        "topic": "ntubimd/addCard/success",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "802dead9c850cc93",
+        "x": 900,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "2148addc4e59c8a9",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "監聽註冊卡機",
+        "topic": "ntubimd/nodeRed/addCard",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "903a52ad95edd11c"
+            ]
+        ]
+    },
+    {
+        "id": "c05a03d1d26ca01f",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "更改車子狀態(django)",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://140.131.115.152/changecar_status",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 640,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b16664a2e741baef",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "處理http資料",
+        "func": "var mqttPayload = msg.payload;\nmsg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\n\nmsg.payload = {\n    'card_code': mqttPayload,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "c05a03d1d26ca01f"
+            ]
+        ]
+    },
+    {
+        "id": "71bb4989ae53a82a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "偵測車子狀態",
+        "topic": "ntubimd/car/status",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "802dead9c850cc93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "b16664a2e741baef"
+            ]
+        ]
+    },
+    {
+        "id": "802dead9c850cc93",
+        "type": "mqtt-broker",
+        "name": "mqtt",
+        "broker": "broker.MQTTGO.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
