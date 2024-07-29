@@ -1,13 +1,31 @@
 #include <Servo.h>
 #include "control.h"
 
-Servo myservo;
+#define RPWM_M1 16
+#define LPWM_M1 17
+#define R_EN_M1 18
+#define L_EN_M1 19
+
+#define RPWM_M2 21
+#define LPWM_M2 22
+#define R_EN_M2 23
+#define L_EN_M2 25
+
+#define RPWM_M3 26
+#define LPWM_M3 27
+#define R_EN_M3 32
+#define L_EN_M3 33
+
+#define RPWM_M4 4
+#define LPWM_M4 5
+#define R_EN_M4 13
+#define L_EN_M4 14
+#include <Servo.h>
+
+Servo myservo = Servo();
+const int servoPin = 15;
 
 void initControl() {
-  myservo.attach(15);
-  myservo.write(45);
-
-  // 初始化控制引腳，與之前代碼相同
   pinMode(RPWM_M1, OUTPUT);
   pinMode(LPWM_M1, OUTPUT);
   pinMode(R_EN_M1, OUTPUT);
@@ -32,6 +50,7 @@ void initControl() {
   digitalWrite(L_EN_M3, HIGH);
   digitalWrite(R_EN_M4, HIGH);
   digitalWrite(L_EN_M4, HIGH);
+  //myservo.write(servoPin, 45);
 }
 
 void moveForward() {
@@ -57,7 +76,7 @@ void moveBackward() {
 }
 
 void turnLeft() {
-  myservo.write(100);
+  myservo.write(servoPin, 100);
   delay(500);
   moveForward();
   delay(1300);
@@ -70,12 +89,12 @@ void turnLeft() {
   analogWrite(RPWM_M4, 0);
   analogWrite(LPWM_M4, 20);
   delay(1000);
-  myservo.write(45);
+  myservo.write(servoPin,45);
   delay(500);
 }
 
 void turnRight() {
-  myservo.write(100);
+  myservo.write(servoPin, 100);
   delay(500);
   analogWrite(RPWM_M1, 0);
   analogWrite(LPWM_M1, 0);
@@ -90,6 +109,6 @@ void turnRight() {
   analogWrite(LPWM_M4, 0);
   delay(200);
   delay(3000);
-  myservo.write(45);
+  myservo.write(servoPin,45);
   delay(500);
 }

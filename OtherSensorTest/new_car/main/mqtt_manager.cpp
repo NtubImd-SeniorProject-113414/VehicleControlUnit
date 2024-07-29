@@ -1,9 +1,14 @@
+#include <WiFi.h>
 #include <PubSubClient.h>
 #include "mqtt_manager.h"
 #include "control.h"
 
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+// 前向声明
+void callback(char* topic, byte* payload, unsigned int length);
+void reconnect();
 
 void startMQTT() {
   client.setServer("MQTT_SERVER_IP", 1883);
@@ -17,6 +22,7 @@ void handleMQTT() {
   client.loop();
 }
 
+// 下面是你已经定义的 callback 和 reconnect 函数
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");

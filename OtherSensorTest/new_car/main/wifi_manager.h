@@ -3,5 +3,6 @@
 
 void startWiFi();
 void handleWiFi();
+void startAPMode();
 
 #endif
