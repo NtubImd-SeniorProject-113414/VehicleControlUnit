@@ -4,5 +4,6 @@
 void startWiFi();
 void handleWiFi();
 void startAPMode();
+void clearAllWiFiSettings();
 
 #endif
