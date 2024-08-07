@@ -6,34 +6,36 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// 前向声明
+const char* mqttServer = "140.131.115.152";
+const int mqttPort = 1883;
+const char* mqttUser = "medimate";
+const char* mqttPassword = "t;65l454cjo4vu4wj/3";
+
 void callback(char* topic, byte* payload, unsigned int length);
 void reconnect();
 
 void startMQTT() {
-  client.setServer("MQTT_SERVER_IP", 1883);
+  client.setServer(mqttServer, mqttPort);
   client.setCallback(callback);
 }
 
-void handleMQTT() {
+bool handleMQTT() {
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
+  return client.connected();
 }
 
-// 下面是你已经定义的 callback 和 reconnect 函数
 void reconnect() {
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    if (client.connect("ESP32Client")) {
-      Serial.println("connected");
+    if (client.connect("ESP32Client", mqttUser, mqttPassword)) {
       client.subscribe("robot/control");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
+      Serial.println(" try again in 1 second");
+      delay(1000);
     }
   }
 }
@@ -52,5 +54,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     turnLeft();
   } else if (command == "right") {
     turnRight();
+  } else if (command == "stop") {
+    stop();
   }
 }

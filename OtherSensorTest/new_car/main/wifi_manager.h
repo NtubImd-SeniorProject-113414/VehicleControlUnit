@@ -2,7 +2,7 @@
 #define WIFI_MANAGER_H
 
 void startWiFi();
-void handleWiFi();
+bool handleWiFi();
 void startAPMode();
 void clearAllWiFiSettings();
 

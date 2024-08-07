@@ -2,17 +2,29 @@
 #include "mqtt_manager.h"
 #include "control.h"
 
+const int ledPin = 2;
+
 void setup() {
   Serial.begin(115200);
 
-  // 初始化控制模塊
   initControl();
-  // 啟動Wi-Fi和MQTT
+  
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+
   startWiFi();
+  startMQTT();
 }
 
 void loop() {
-  handleWiFi();  // 處理Wi-Fi狀態和AP模式下的Web服務器
-  //handleMQTT();  // 處理MQTT消息和重連
+  if (handleWiFi()) {
+      if (handleMQTT()) {
+          digitalWrite(ledPin, HIGH);
+      } else {
+          digitalWrite(ledPin, LOW);
+      }
+  } else {
+      digitalWrite(ledPin, LOW);
+  }
 }
 

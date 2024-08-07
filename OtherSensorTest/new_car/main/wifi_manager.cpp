@@ -123,10 +123,23 @@ void startAPMode() {
     Serial.println("Web server started");
 }
 
-void handleWiFi() {
-    if (!wifi_connected) {
-        server.handleClient();
+bool handleWiFi() {
+    if (wifi_connected && WiFi.status() != WL_CONNECTED) {
+        Serial.println("Wi-Fi disconnected");
+        wifi_connected = false;
+        startWiFi();
     }
+
+    if (!wifi_connected) {
+        if (WiFi.status() == WL_CONNECTED) {
+            wifi_connected = true;
+            Serial.println("Wi-Fi connected");
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
 }
 
 void clearAllWiFiSettings() {
