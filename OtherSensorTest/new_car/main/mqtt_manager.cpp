@@ -6,10 +6,10 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-const char* mqttServer = "140.131.115.152";
+const char* mqttServer = "140.131.115.42";
 const int mqttPort = 1883;
 const char* mqttUser = "medimate";
-const char* mqttPassword = "t;65l454cjo4vu4wj/3";
+const char* mqttPassword = "t;65l4u xul6vu4wj/3";
 
 void callback(char* topic, byte* payload, unsigned int length);
 void reconnect();
