@@ -54,6 +54,17 @@ void initControl() {
 }
 
 void moveForward() {
+  myservo.write(servoPin, 45);
+  delay(100);
+  analogWrite(RPWM_M1, 40);
+  analogWrite(LPWM_M1, 0);
+  analogWrite(RPWM_M2, 40);
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M3, 40);
+  analogWrite(LPWM_M3, 0);
+  analogWrite(RPWM_M4, 40);
+  analogWrite(LPWM_M4, 0);
+  delay(250);
   analogWrite(RPWM_M1, 20);
   analogWrite(LPWM_M1, 0);
   analogWrite(RPWM_M2, 20);
@@ -65,50 +76,66 @@ void moveForward() {
 }
 
 void moveBackward() {
+  myservo.write(servoPin, 45);
+  delay(100);
   analogWrite(RPWM_M1, 0);
-  analogWrite(LPWM_M1, 30);
+  analogWrite(LPWM_M1, 40);
   analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 30);
+  analogWrite(LPWM_M2, 40);
   analogWrite(RPWM_M3, 0);
-  analogWrite(LPWM_M3, 30);
+  analogWrite(LPWM_M3, 40);
   analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 30);
+  analogWrite(LPWM_M4, 40);
+  delay(250);
+  analogWrite(RPWM_M1, 0);
+  analogWrite(LPWM_M1, 25);
+  analogWrite(RPWM_M2, 0);
+  analogWrite(LPWM_M2, 25);
+  analogWrite(RPWM_M3, 0);
+  analogWrite(LPWM_M3, 25);
+  analogWrite(RPWM_M4, 0);
+  analogWrite(LPWM_M4, 25);
 }
 
 void turnLeft() {
+  myservo.write(servoPin, 130);
+  delay(200);
   myservo.write(servoPin, 100);
-  delay(500);
-  moveForward();
-  delay(1300);
+  delay(100);
   analogWrite(RPWM_M1, 0);
-  analogWrite(LPWM_M1, 30);
+  analogWrite(LPWM_M1, 0);
   analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 20);
+  analogWrite(LPWM_M2, 0);
   analogWrite(RPWM_M3, 0);
-  analogWrite(LPWM_M3, 30);
-  analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 20);
-  delay(1000);
-  myservo.write(servoPin,45);
-  delay(500);
+  analogWrite(LPWM_M3, 10);
+  analogWrite(RPWM_M4, 70);
+  analogWrite(LPWM_M4, 0);
 }
 
 void turnRight() {
+  myservo.write(servoPin, 130);
+  delay(200);
   myservo.write(servoPin, 100);
-  delay(500);
+  delay(100);
   analogWrite(RPWM_M1, 0);
   analogWrite(LPWM_M1, 0);
-  delay(200);
   analogWrite(RPWM_M2, 0);
   analogWrite(LPWM_M2, 0);
-  delay(200);
+  analogWrite(RPWM_M4, 0);
+  analogWrite(LPWM_M4, 10);
+  analogWrite(RPWM_M3, 70);
+  analogWrite(LPWM_M3, 0);
+}
+
+void stop(){
+  myservo.write(servoPin, 45);
+  delay(100);
+  analogWrite(RPWM_M1, 0);
+  analogWrite(LPWM_M1, 0);
+  analogWrite(RPWM_M2, 0);
+  analogWrite(LPWM_M2, 0);
   analogWrite(RPWM_M3, 0);
   analogWrite(LPWM_M3, 0);
-  delay(200);
-  analogWrite(RPWM_M4, 55);
+  analogWrite(RPWM_M4, 0);
   analogWrite(LPWM_M4, 0);
-  delay(200);
-  delay(3000);
-  myservo.write(servoPin,45);
-  delay(500);
 }
