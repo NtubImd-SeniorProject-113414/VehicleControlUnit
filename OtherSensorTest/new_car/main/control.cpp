@@ -24,7 +24,6 @@
 
 Servo myservo = Servo();
 const int servoPin = 15;
-
 void initControl() {
   pinMode(RPWM_M1, OUTPUT);
   pinMode(LPWM_M1, OUTPUT);

@@ -2,7 +2,6 @@
 #include <WebServer.h>
 #include <Preferences.h>
 #include "wifi_manager.h"
-#include "espnow_manager.h"
 
 const char* ap_ssid = "MediMateIot-Setup";
 const char* ap_password = "adminaccess";
@@ -23,8 +22,6 @@ void startWiFi() {
       if (WiFi.waitForConnectResult() == WL_CONNECTED) {
           Serial.println("Connected to Wi-Fi");
           wifi_connected = true;
-          // Wi-Fi 連接成功後初始化 ESP-NOW
-          initESPNow();
       } else {
           Serial.println("Failed to connect to Wi-Fi");
           startAPMode();  // 啟動 AP 模式
