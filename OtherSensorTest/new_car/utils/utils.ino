@@ -1,17 +1,27 @@
+#include <Arduino.h>
+#include "BarcodeScanner.h"
 #include "ESP32Comm.h"
 
-const int rxPin = 19;      // RX pin (從其他 ESP32 接收數據)
-const int txPin = 21;      // TX pin (傳送數據到其他 ESP32)
-
-ESP32Comm myComm(Serial1, rxPin, txPin, 9600);  // 創建通信物件，使用 UART1
+ESP32Comm myComm(Serial1, 19, 21, 9600);  // 創建通信物件，使用 UART1
 
 void setup() {
-  Serial.begin(115200);  // 用於監視器通訊
-  myComm.begin();        // 初始化通信
-  myComm.startListening();  // 啟動監聽
+  Serial.begin(115200);                      // 初始化監視器串口
+  barcodeScannerBegin(16, 17, 9600);         // 初始化條碼掃描器
+  myComm.begin();                            // 初始化串口(第一台ESP32)
 }
 
 void loop() {
-  myComm.send("ON");
-  delay(2000);
+  if (myComm.serial.available()) {
+    String received = myComm.serial.readString();
+    Serial.println("Received: " + received);
+
+    if (received.indexOf("SCAN") != -1) {
+      Serial.println("Triggering barcode scan...");
+      triggerScan();  // 觸發條碼掃描
+    } else {
+      Serial.println("Unknown command: " + received);
+    }
+  }
+
+  eventScan();
 }

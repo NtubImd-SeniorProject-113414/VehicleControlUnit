@@ -40,6 +40,6 @@ void loop() {
       digitalWrite(ledPin, LOW);       // 若 WiFi 斷開，關閉 LED
   }
   
-  myComm.send("ESP1");
+  myComm.send("SCAN");
   delay(2000);
 }
