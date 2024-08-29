@@ -2,6 +2,7 @@
 #include <PubSubClient.h>
 #include "mqtt_manager.h"
 #include "control.h"
+#include "ESP32Comm.h"
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -10,6 +11,8 @@ const char* mqttServer = "140.131.115.42";
 const int mqttPort = 1883;
 const char* mqttUser = "medimate";
 const char* mqttPassword = "t;65l4u xul6vu4wj/3";
+
+extern ESP32Comm myComm;
 
 void callback(char* topic, byte* payload, unsigned int length);
 void reconnect();
@@ -46,6 +49,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     command += (char)payload[i];
   }
 
+  // 處理不同的命令
   if (command == "forward") {
     moveForward();
   } else if (command == "backward") {
@@ -56,5 +60,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     turnRight();
   } else if (command == "stop") {
     stop();
+  } else if (command == "scan") {
+    myComm.send("SCAN");
   }
 }

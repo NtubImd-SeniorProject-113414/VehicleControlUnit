@@ -16,12 +16,16 @@ void loop() {
     Serial.println("Received: " + received);
 
     if (received.indexOf("SCAN") != -1) {
-      Serial.println("Triggering barcode scan...");
-      triggerScan();  // 觸發條碼掃描
+      triggerScan();
+      delay(10);
     } else {
       Serial.println("Unknown command: " + received);
     }
   }
 
-  eventScan();
+  String barcodeData = eventScan();
+  if (barcodeData != "") {
+    Serial.println("Sending barcode data: " + barcodeData);
+    myComm.send(barcodeData);
+  }
 }

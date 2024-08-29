@@ -7,7 +7,7 @@
 // 函數聲明
 void barcodeScannerBegin(int rxPin, int txPin, long baudRate);
 void triggerScan();
-bool eventScan();
+String eventScan();
 bool isPrintable(char c);
 bool isValidData(String data);
 

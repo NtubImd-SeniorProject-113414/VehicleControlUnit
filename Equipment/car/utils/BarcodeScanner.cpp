@@ -14,7 +14,7 @@ void triggerScan() {
 }
 
 // 處理掃描事件，返回是否有掃描數據
-bool eventScan() {
+String eventScan() {
   if (barcodeScanner.available()) {
     String barcodeData = "";
     bool TF = false;
@@ -34,15 +34,13 @@ bool eventScan() {
       if (TF) {
         int index = barcodeData.indexOf("31");
         if (index != -1) {
-          barcodeData.remove(index, 2);  // 移除第一次出現的 "31"
+          barcodeData.remove(index, 2);
         }
       }
-      Serial.println("Barcode Data: " + barcodeData);
-      triggerScan();  // 觸發下一次掃描
-      return true;  // 成功讀取到條碼數據
+      return barcodeData;
     }
   }
-  return false;  // 沒有讀取到條碼數據
+  return "";
 }
 
 // 判斷字符是否可打印

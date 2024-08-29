@@ -39,7 +39,4 @@ void loop() {
   } else {
       digitalWrite(ledPin, LOW);       // 若 WiFi 斷開，關閉 LED
   }
-  
-  myComm.send("SCAN");
-  delay(2000);
 }

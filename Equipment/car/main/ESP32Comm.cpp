@@ -22,9 +22,9 @@ void ESP32Comm::listenTask(void* param) {
   while (true) {
     if (comm->serial.available()) {
       String received = comm->serial.readString();  // 讀取串口資料
-      Serial.print(received);
+      Serial.println(received);
     }
 
-    vTaskDelay(100 / portTICK_PERIOD_MS);  // 延遲 100 毫秒以避免佔用太多 CPU
+    vTaskDelay(10 / portTICK_PERIOD_MS);  // 延遲 25 毫秒以避免佔用太多 CPU
   }
 }
