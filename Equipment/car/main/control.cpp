@@ -96,6 +96,28 @@ void moveBackward() {
   analogWrite(LPWM_M4, 25);
 }
 
+void offsetRight(){
+  analogWrite(RPWM_M1, 0);
+  analogWrite(LPWM_M1, 10);
+  analogWrite(RPWM_M3, 0);
+  analogWrite(LPWM_M3, 10);
+  analogWrite(RPWM_M2, 50);
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M4, 60);
+  analogWrite(LPWM_M4, 0);
+}
+
+void offsetLeft(){
+  analogWrite(RPWM_M1, 50);
+  analogWrite(LPWM_M1, 0);
+  analogWrite(RPWM_M3, 60);
+  analogWrite(LPWM_M3, 0);
+  analogWrite(RPWM_M2, 0);
+  analogWrite(LPWM_M2, 10);
+  analogWrite(RPWM_M4, 0);
+  analogWrite(LPWM_M4, 10);
+}
+
 void turnLeft() {
   myservo.write(servoPin, 130);
   delay(200);

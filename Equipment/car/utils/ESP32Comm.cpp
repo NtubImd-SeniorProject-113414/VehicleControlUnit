@@ -8,5 +8,5 @@ void ESP32Comm::begin() {
 }
 
 void ESP32Comm::send(const String& message) {
-  serial.print(message);  // 發送消息
+  serial.println(message);  // 發送消息
 }

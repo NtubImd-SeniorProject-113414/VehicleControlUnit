@@ -2,41 +2,68 @@
 #include "mqtt_manager.h"
 #include "ESP32Comm.h"
 #include "control.h"
-#include <HardwareSerial.h>  // 包含 HardwareSerial 庫
+#include <HardwareSerial.h>
 
-HardwareSerial MySerial(1);  // 創建 HardwareSerial 物件，使用 UART1
+HardwareSerial MySerial(1);
 
-const int rxPin = 35;      // RX pin (從其他 ESP32 接收數據)
-const int txPin = 12;      // TX pin (傳送數據到其他 ESP32)
-const int ledPin = 2;      // LED pin
+const int rxPin = 35;
+const int txPin = 12;
+const int ledPin = 2;
 
-ESP32Comm myComm(Serial1, rxPin, txPin, 9600);  // 創建通信物件，使用 UART1
+ESP32Comm myComm(Serial1, rxPin, txPin, 9600);
+
+String receivedData = "";  // 用來存儲逐字接收的資料
+bool commandComplete = false;  // 用來標記是否收到完整指令
 
 void setup() {
-  Serial.begin(115200);    // ESP32 與電腦的串口通信
-  MySerial.begin(9600, SERIAL_8N1, rxPin, txPin);  // 初始化 HardwareSerial UART1，指定 RX 和 TX 引腳
+  Serial.begin(115200);
+  MySerial.begin(9600, SERIAL_8N1, rxPin, txPin);
 
-  initControl();           // 初始化控制相關邏輯
+  initControl();
   
-  pinMode(ledPin, OUTPUT); // 初始化 LED pin
+  pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
   
-  startWiFi();   // 啟動 WiFi
-  startMQTT();   // 啟動 MQTT
-  myComm.begin();        // 初始化通信
-  myComm.startListening();  // 啟動監聽
+  startWiFi();
+  startMQTT();
+  myComm.begin();
 }
 
 void loop() {
-  // 處理 WiFi 連線
   if (handleWiFi()) {
-      // 處理 MQTT 連線
       if (handleMQTT()) {
-          digitalWrite(ledPin, HIGH);  // 若 MQTT 成功連線，亮起 LED
+          digitalWrite(ledPin, HIGH);
       } else {
-          digitalWrite(ledPin, LOW);   // 若 MQTT 斷開，關閉 LED
+          digitalWrite(ledPin, LOW);
       }
   } else {
-      digitalWrite(ledPin, LOW);       // 若 WiFi 斷開，關閉 LED
+      digitalWrite(ledPin, LOW);
+  }
+
+  while (myComm.serial.available() > 0) {
+    char inChar = (char)myComm.serial.read();  // 讀取一個字元
+    receivedData += inChar;
+
+    if (inChar == '\n') {  // 檢查是否收到換行符
+      commandComplete = true;
+    }
+  }
+
+  if (commandComplete) {
+    Serial.println("Received: " + receivedData);
+
+    if (receivedData.indexOf("STOP") != -1) {
+      stop();
+    } else if (receivedData.indexOf("OFFSET_RIGHT") != -1) {
+      offsetRight();
+    } else if (receivedData.indexOf("OFFSET_LEFT") != -1) {
+      offsetLeft();
+    } else if (receivedData.indexOf("FORWARD") != -1) {
+      moveForward();
+    }
+
+    // 清除接收數據並重置標記
+    receivedData = "";
+    commandComplete = false;
   }
 }

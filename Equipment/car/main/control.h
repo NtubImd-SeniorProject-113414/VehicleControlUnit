@@ -6,6 +6,8 @@ void moveForward();
 void moveBackward();
 void turnLeft();
 void turnRight();
+void offsetRight();
+void offsetLeft();
 void stop();
 
 #endif
