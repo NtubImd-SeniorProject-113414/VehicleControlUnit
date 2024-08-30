@@ -1,4 +1,5 @@
 #include "ESP32Comm.h"
+#include "control.h"
 
 ESP32Comm::ESP32Comm(HardwareSerial& serialPort, int rxPin, int txPin, long baudRate)
   : serial(serialPort), rxPin(rxPin), txPin(txPin), baudRate(baudRate) {}
@@ -21,10 +22,13 @@ void ESP32Comm::listenTask(void* param) {
 
   while (true) {
     if (comm->serial.available()) {
-      String received = comm->serial.readString();  // 讀取串口資料
-      Serial.println(received);
+      String command = comm->serial.readString();  // 讀取串口資料
+      if (command.indexOf("STOP") != -1) {
+        stop();
+      }
+      Serial.println(command);
     }
 
-    vTaskDelay(10 / portTICK_PERIOD_MS);  // 延遲 25 毫秒以避免佔用太多 CPU
+    vTaskDelay(1 / portTICK_PERIOD_MS);  // 延遲 25 毫秒以避免佔用太多 CPU
   }
 }
