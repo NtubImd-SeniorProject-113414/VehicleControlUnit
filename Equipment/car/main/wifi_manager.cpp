@@ -9,6 +9,7 @@ const char* ap_password = "adminaccess";
 WebServer server(80);
 Preferences preferences;
 bool wifi_connected = false;
+bool apModeActive = false;  // 新增：AP模式活動狀態標誌
 
 void startWiFi() {
   //clearAllWiFiSettings();
@@ -22,12 +23,17 @@ void startWiFi() {
       if (WiFi.waitForConnectResult() == WL_CONNECTED) {
           Serial.println("Connected to Wi-Fi");
           wifi_connected = true;
+          apModeActive = false;  // Wi-Fi连接成功后，将AP模式标志重置
       } else {
           Serial.println("Failed to connect to Wi-Fi");
-          startAPMode();  // 啟動 AP 模式
+          if (!apModeActive) {
+              startAPMode();  // 只在未處於AP模式時啟動AP模式
+          }
       }
   } else {
-      startAPMode();  // 啟動 AP 模式
+      if (!apModeActive) {
+          startAPMode();  // 只在未處於AP模式時啟動AP模式
+      }
   }
 }
 
@@ -37,7 +43,10 @@ void startAPMode() {
     Serial.print("AP IP address: ");
     Serial.println(IP);
     Serial.println("AP Mode Started. Connect to AP and visit 192.168.4.1");
+    
+    apModeActive = true;  // 标记系统已进入AP模式
 
+    // 处理HTTP请求
     server.on("/", HTTP_GET, []() {
         String page = "<html><head><title>MediMate設備連線設定</title><meta charset=\"UTF-8\"><style>"
                       "body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }"
@@ -124,36 +133,52 @@ void startAPMode() {
 }
 
 bool handleWiFi() {
-    if (wifi_connected && WiFi.status() != WL_CONNECTED) {
-        Serial.println("Wi-Fi disconnected");
-        wifi_connected = false;
-        startWiFi();
+    if (apModeActive) {
+        server.handleClient();  // 在AP模式下，繼續處理HTTP客戶端請求
     }
 
-    if (!wifi_connected) {
+    if (!wifi_connected || WiFi.status() != WL_CONNECTED) {
+        wifi_connected = false;
+        startWiFi();
+        return false;
+    }
+
+    // 如果Wi-Fi已經連接，檢查RSSI（信號強度）
+    if (wifi_connected) {
+        int32_t rssi = WiFi.RSSI();
+        Serial.println("Current Wi-Fi RSSI: " + String(rssi));
+
+        // 如果Wi-Fi信號太弱且未處於AP模式，則切換到AP模式
+        if (rssi < -60 && !apModeActive) {
+            Serial.println("Wi-Fi signal too weak, switching to AP mode");
+            WiFi.disconnect();
+            wifi_connected = false;
+            startAPMode();  // 切換到AP模式
+            return false;
+        }
+
         if (WiFi.status() == WL_CONNECTED) {
-            wifi_connected = true;
             Serial.println("Wi-Fi connected");
             return true;
         } else {
             return false;
         }
     }
+
     return true;
 }
 
 void clearAllWiFiSettings() {
-    preferences.begin("wifiCreds", false);  // 打開可讀寫模式
+    preferences.begin("wifiCreds", false);
 
     int count = preferences.getInt("count", 0);
     for (int i = 0; i < count; i++) {
         preferences.remove(("ssid_" + String(i)).c_str());
         preferences.remove(("password_" + String(i)).c_str());
     }
-    preferences.putInt("count", 0);  // 重置 Wi-Fi 設定數量
+    preferences.putInt("count", 0);
     preferences.end();
 
     Serial.println("All Wi-Fi settings cleared.");
 }
-
 
