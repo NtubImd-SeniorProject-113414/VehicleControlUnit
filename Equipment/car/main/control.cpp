@@ -55,15 +55,15 @@ void initControl() {
 void moveForward() {
   myservo.write(servoPin, 45);
   delay(100);
-  analogWrite(RPWM_M1, 40);
-  analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M2, 40);
-  analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M3, 40);
-  analogWrite(LPWM_M3, 0);
-  analogWrite(RPWM_M4, 40);
-  analogWrite(LPWM_M4, 0);
-  delay(250);
+  // analogWrite(RPWM_M1, 40);
+  // analogWrite(LPWM_M1, 0);
+  // analogWrite(RPWM_M2, 40);
+  // analogWrite(LPWM_M2, 0);
+  // analogWrite(RPWM_M3, 40);
+  // analogWrite(LPWM_M3, 0);
+  // analogWrite(RPWM_M4, 40);
+  // analogWrite(LPWM_M4, 0);
+  // delay(250);
   analogWrite(RPWM_M1, 20);
   analogWrite(LPWM_M1, 0);
   analogWrite(RPWM_M2, 20);
