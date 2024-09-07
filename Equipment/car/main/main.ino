@@ -50,7 +50,7 @@ void loop() {
   }
 
   if (commandComplete) {
-    Serial.println("Received: " + receivedData);
+    //Serial.println("Received: " + receivedData);
 
     if (receivedData.indexOf("STOP") != -1) {
       stop();

@@ -62,5 +62,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
     stop();
   } else if (command == "scan") {
     myComm.send("SCAN");
+  } else if (command == "get/mac") {
+    String macAddress = WiFi.macAddress();
+    Serial.println("MAC Address: " + macAddress);
+    client.publish("return/mac", macAddress.c_str());
   }
 }

@@ -128,7 +128,7 @@ void turnLeft() {
   analogWrite(RPWM_M2, 0);
   analogWrite(LPWM_M2, 0);
   analogWrite(RPWM_M3, 0);
-  analogWrite(LPWM_M3, 10);
+  analogWrite(LPWM_M3, 5);
   analogWrite(RPWM_M4, 70);
   analogWrite(LPWM_M4, 0);
 }
@@ -143,7 +143,7 @@ void turnRight() {
   analogWrite(RPWM_M2, 0);
   analogWrite(LPWM_M2, 0);
   analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 10);
+  analogWrite(LPWM_M4, 5);
   analogWrite(RPWM_M3, 70);
   analogWrite(LPWM_M3, 0);
 }

@@ -146,7 +146,6 @@ bool handleWiFi() {
     // 如果Wi-Fi已經連接，檢查RSSI（信號強度）
     if (wifi_connected) {
         int32_t rssi = WiFi.RSSI();
-        Serial.println("Current Wi-Fi RSSI: " + String(rssi));
 
         // 如果Wi-Fi信號太弱且未處於AP模式，則切換到AP模式
         if (rssi < -60 && !apModeActive) {
@@ -158,7 +157,6 @@ bool handleWiFi() {
         }
 
         if (WiFi.status() == WL_CONNECTED) {
-            Serial.println("Wi-Fi connected");
             return true;
         } else {
             return false;
