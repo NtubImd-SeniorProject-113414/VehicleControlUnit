@@ -1,5 +1,5 @@
-#include <Servo.h>
 #include "control.h"
+#include <Arduino.h>
 
 #define RPWM_M1 16
 #define LPWM_M1 17
@@ -20,10 +20,7 @@
 #define LPWM_M4 5
 #define R_EN_M4 13
 #define L_EN_M4 14
-#include <Servo.h>
 
-Servo myservo = Servo();
-const int servoPin = 15;
 void initControl() {
   pinMode(RPWM_M1, OUTPUT);
   pinMode(LPWM_M1, OUTPUT);
@@ -49,34 +46,25 @@ void initControl() {
   digitalWrite(L_EN_M3, HIGH);
   digitalWrite(R_EN_M4, HIGH);
   digitalWrite(L_EN_M4, HIGH);
-  //myservo.write(servoPin, 45);
 }
-
+// 前進
 void moveForward() {
-  myservo.write(servoPin, 45);
-  delay(100);
-  // analogWrite(RPWM_M1, 40);
-  // analogWrite(LPWM_M1, 0);
-  // analogWrite(RPWM_M2, 40);
-  // analogWrite(LPWM_M2, 0);
-  // analogWrite(RPWM_M3, 40);
-  // analogWrite(LPWM_M3, 0);
-  // analogWrite(RPWM_M4, 40);
-  // analogWrite(LPWM_M4, 0);
-  // delay(250);
-  analogWrite(RPWM_M1, 20);
+  stop();
+  delay(350);
+  analogWrite(RPWM_M1, 40);
   analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M2, 20);
+  analogWrite(RPWM_M2, 40);
   analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M3, 20);
+  analogWrite(RPWM_M3, 40);
   analogWrite(LPWM_M3, 0);
-  analogWrite(RPWM_M4, 20);
+  analogWrite(RPWM_M4, 40);
   analogWrite(LPWM_M4, 0);
 }
 
+// 後退
 void moveBackward() {
-  myservo.write(servoPin, 45);
-  delay(100);
+  stop();
+  delay(300);
   analogWrite(RPWM_M1, 0);
   analogWrite(LPWM_M1, 40);
   analogWrite(RPWM_M2, 0);
@@ -85,72 +73,93 @@ void moveBackward() {
   analogWrite(LPWM_M3, 40);
   analogWrite(RPWM_M4, 0);
   analogWrite(LPWM_M4, 40);
-  delay(250);
-  analogWrite(RPWM_M1, 0);
-  analogWrite(LPWM_M1, 25);
-  analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 25);
-  analogWrite(RPWM_M3, 0);
-  analogWrite(LPWM_M3, 25);
-  analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 25);
 }
 
-void offsetRight(){
+// 水平偏移 - 向右
+void shiftRight() {
+  stop();
+  delay(300);
+  analogWrite(RPWM_M1, 40);
+  analogWrite(LPWM_M1, 0);
+  analogWrite(RPWM_M3, 0);
+  analogWrite(LPWM_M3, 40);
+  analogWrite(RPWM_M2, 0);
+  analogWrite(LPWM_M2, 40);
+  analogWrite(RPWM_M4, 40);
+  analogWrite(LPWM_M4, 0);
+
+}
+
+// 水平偏移 - 向左
+void shiftLeft() {
+  stop();
+  delay(300);
+  analogWrite(RPWM_M1, 0);
+  analogWrite(LPWM_M1, 40);
+  analogWrite(RPWM_M3, 40);
+  analogWrite(LPWM_M3, 0);
+  analogWrite(RPWM_M2, 40);
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M4, 0);
+  analogWrite(LPWM_M4, 40);
+}
+
+// 原地左轉
+void turnLeft() {
+  stop();
+  delay(300);
+  analogWrite(RPWM_M1, 0);  // M1 反轉
+  analogWrite(LPWM_M1, 40);
+  analogWrite(RPWM_M2, 40); // M2 正轉
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M3, 0);  // M3 反轉
+  analogWrite(LPWM_M3, 40);
+  analogWrite(RPWM_M4, 40); // M4 正轉
+  analogWrite(LPWM_M4, 0);
+}
+
+// 原地右轉
+void turnRight() {
+  stop();
+  delay(300);
+  analogWrite(RPWM_M1, 40); // M1 正轉
+  analogWrite(LPWM_M1, 0);
+  analogWrite(RPWM_M2, 0);  // M2 反轉
+  analogWrite(LPWM_M2, 40);
+  analogWrite(RPWM_M3, 40); // M3 正轉
+  analogWrite(LPWM_M3, 0);
+  analogWrite(RPWM_M4, 0);  // M4 反轉
+  analogWrite(LPWM_M4, 40);
+}
+
+// 左修正 - 微調，調整 M2、M4 的速度
+void correctLeft() {
   analogWrite(RPWM_M1, 0);
   analogWrite(LPWM_M1, 10);
   analogWrite(RPWM_M3, 0);
   analogWrite(LPWM_M3, 10);
-  analogWrite(RPWM_M2, 50);
-  analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M4, 60);
-  analogWrite(LPWM_M4, 0);
-}
-
-void offsetLeft(){
-  analogWrite(RPWM_M1, 50);
+  delay(100); // 短暫修正
+  analogWrite(RPWM_M1, 40);
   analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M3, 60);
-  analogWrite(LPWM_M3, 0);
-  analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 10);
-  analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 10);
-}
-
-void turnLeft() {
-  myservo.write(servoPin, 130);
-  delay(200);
-  myservo.write(servoPin, 100);
-  delay(100);
-  analogWrite(RPWM_M1, 0);
-  analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M3, 0);
-  analogWrite(LPWM_M3, 5);
-  analogWrite(RPWM_M4, 70);
-  analogWrite(LPWM_M4, 0);
-}
-
-void turnRight() {
-  myservo.write(servoPin, 130);
-  delay(200);
-  myservo.write(servoPin, 100);
-  delay(100);
-  analogWrite(RPWM_M1, 0);
-  analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M2, 0);
-  analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M4, 0);
-  analogWrite(LPWM_M4, 5);
-  analogWrite(RPWM_M3, 70);
+  analogWrite(RPWM_M3, 40);
   analogWrite(LPWM_M3, 0);
 }
 
-void stop(){
-  myservo.write(servoPin, 45);
-  delay(100);
+// 右修正 - 微調，調整 M2、M4 的速度
+void correctRight() {
+  analogWrite(RPWM_M2, 10);
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M4, 10);
+  analogWrite(LPWM_M4, 0);
+  delay(100); // 短暫修正
+  analogWrite(RPWM_M2, 40);
+  analogWrite(LPWM_M2, 0);
+  analogWrite(RPWM_M4, 40);
+  analogWrite(LPWM_M4, 0);
+}
+
+// 停止所有馬達
+void stop() {
   analogWrite(RPWM_M1, 0);
   analogWrite(LPWM_M1, 0);
   analogWrite(RPWM_M2, 0);
