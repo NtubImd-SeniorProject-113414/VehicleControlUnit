@@ -1,3 +1,4 @@
+#include <WiFi.h>
 #include "wifi_manager.h"
 #include "mqtt_manager.h"
 #include "ESP32Comm.h"
@@ -50,16 +51,17 @@ void loop() {
   }
 
   if (commandComplete) {
-    //Serial.println("Received: " + receivedData);
+    Serial.println("Received: " + receivedData);
 
     if (receivedData.indexOf("STOP") != -1) {
       stop();
     } else if (receivedData.indexOf("OFFSET_RIGHT") != -1) {
-      offsetRight();
+      correctRight();
     } else if (receivedData.indexOf("OFFSET_LEFT") != -1) {
-      offsetLeft();
-    } else if (receivedData.indexOf("FORWARD") != -1) {
-      moveForward();
+      correctLeft();
+    } else {
+      String data = WiFi.macAddress() + "," + receivedData;
+      client.publish("return/qrcode", data.c_str());
     }
 
     // 清除接收數據並重置標記

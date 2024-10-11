@@ -52,19 +52,24 @@ void callback(char* topic, byte* payload, unsigned int length) {
   // 處理不同的命令
   if (command == "forward") {
     moveForward();
+    myComm.send("ON");
   } else if (command == "backward") {
     moveBackward();
   } else if (command == "left") {
     turnLeft();
   } else if (command == "right") {
     turnRight();
+  } else if (command == "shiftLeft") {
+    shiftLeft();
+  } else if (command == "shiftRight") {
+    shiftRight();
   } else if (command == "stop") {
+    myComm.send("OFF");
     stop();
   } else if (command == "scan") {
     myComm.send("SCAN");
   } else if (command == "get/mac") {
     String macAddress = WiFi.macAddress();
-    Serial.println("MAC Address: " + macAddress);
     client.publish("return/mac", macAddress.c_str());
   }
 }
