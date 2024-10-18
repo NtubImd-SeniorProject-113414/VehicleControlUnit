@@ -50,7 +50,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
 
   // 處理不同的命令
-  if (command == "forward") {
+  if (command.indexOf("speed") != -1) {
+    setSpeed(command.substring(command.indexOf(",") + 1).toInt());
+  }else if (command == "forward") {
     moveForward();
     myComm.send("ON");
   } else if (command == "backward") {

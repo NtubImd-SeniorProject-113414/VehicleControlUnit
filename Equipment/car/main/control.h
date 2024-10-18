@@ -3,6 +3,8 @@
 
 void initControl();
 void moveForward();
+void setSpeed(int newSpeed);
+int getSpeed();
 void moveBackward();
 void turnLeft();
 void turnRight();
