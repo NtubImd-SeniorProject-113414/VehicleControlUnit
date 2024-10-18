@@ -148,7 +148,8 @@ bool handleWiFi() {
         int32_t rssi = WiFi.RSSI();
 
         // 如果Wi-Fi信號太弱且未處於AP模式，則切換到AP模式
-        if (rssi < -60 && !apModeActive) {
+        //Serial.println(rssi);
+        if (rssi < -80 && !apModeActive) {
             Serial.println("Wi-Fi signal too weak, switching to AP mode");
             WiFi.disconnect();
             wifi_connected = false;
