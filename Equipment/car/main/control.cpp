@@ -22,7 +22,7 @@
 #define L_EN_M4 14
 
 // 定義全域速度變數
-int motorSpeed = 40; // 預設速度
+int motorSpeed = 32; // 預設速度
 
 void initControl() {
   pinMode(RPWM_M1, OUTPUT);
@@ -135,26 +135,18 @@ void turnRight() {
 
 // 左修正 - 微調，調整 M2、M4 的速度
 void correctLeft() {
-  analogWrite(RPWM_M2, motorSpeed + 10);
-  analogWrite(LPWM_M2, 0);
-  analogWrite(RPWM_M4, motorSpeed + 10);
-  analogWrite(LPWM_M4, 0);
+  analogWrite(RPWM_M2, min((int)(motorSpeed * 1.3), 50));
+  analogWrite(RPWM_M4, min((int)(motorSpeed * 1.3), 50));
   analogWrite(RPWM_M1, motorSpeed / 4);
-  analogWrite(LPWM_M1, 0);
   analogWrite(RPWM_M3, motorSpeed / 4);
-  analogWrite(LPWM_M3, 0);
 }
 
 // 右修正 - 微調，調整 M2、M4 的速度
 void correctRight() {
-  analogWrite(RPWM_M1, motorSpeed + 10);
-  analogWrite(LPWM_M1, 0);
-  analogWrite(RPWM_M3, motorSpeed + 10);
-  analogWrite(LPWM_M3, 0);
+  analogWrite(RPWM_M1, min((int)(motorSpeed * 1.3), 50));
+  analogWrite(RPWM_M3, min((int)(motorSpeed * 1.3), 50));
   analogWrite(RPWM_M2, motorSpeed / 4);
-  analogWrite(LPWM_M2, 0);
   analogWrite(RPWM_M4, motorSpeed / 4);
-  analogWrite(LPWM_M4, 0);
 }
 
 // 停止所有馬達
