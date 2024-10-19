@@ -65,7 +65,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
     shiftLeft();
   } else if (command == "shiftRight") {
     shiftRight();
-  } else if (command == "stop") {
+  } else if(command == "parse") {
+    stop();
+  }else if (command == "stop") {
     myComm.send("OFF");
     stop();
   } else if (command == "scan") {
