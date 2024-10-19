@@ -49,25 +49,24 @@ void loop() {
     Serial.println("Sending barcode data: " + barcodeData);
     myComm.send(barcodeData);
   }
-  if (turnMode && sensor4State == 1 && sensor2State == 1) {
-    turnMode = false;
-    myComm.send("FORWARD");
-  };
   if(state){
     if(!turnMode){
-      if(sensor4State == 0 && sensor3State == 0 && sensor2State == 0){
+      if(sensor4State == 0 && sensor3State == 0 && sensor2State == 0 && state){
         turnMode = true;
-      } else if (sensor2State == 1 && sensor3State == 1) {
-        myComm.send("FORWARD");
-      } else if (sensor3State == 0) {
+      } else if (sensor3State == 0 && state) {
         myComm.send("OFFSET_RIGHT");
-      } else if(sensor2State == 0){
+      } else if(sensor2State == 0 && state){
         myComm.send("OFFSET_LEFT");
       }
-      if(sensor4State == 0){
+      if(sensor4State == 0 && state){
         triggerScan();
         myComm.send("SLOW");
       }
+    }else{
+      if (sensor4State == 1 && sensor3State == 1 && state) {
+        turnMode = false;
+        myComm.send("SLOW");
+      };
     }
     delay(44);
   }

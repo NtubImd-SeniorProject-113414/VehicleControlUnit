@@ -44,7 +44,7 @@ void loop() {
 
   while (myComm.serial.available() > 0) {
     char inChar = (char)myComm.serial.read();
-    if (isalnum(inChar) || inChar == '-') {
+    if (isalnum(inChar) || inChar == '-' || inChar == '_') {
       receivedData += inChar;
     }
     if (inChar == '\n') {
@@ -67,7 +67,6 @@ void loop() {
       moveForward();
     } else {
       String data = WiFi.macAddress() + "," + receivedData;
-      Serial.print("Received: " + data);
       client.publish("return/qrcode", data.c_str());
     }
   // Reset the command buffer and flag
